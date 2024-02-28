@@ -4,12 +4,12 @@ import java.time.Duration;
 import java.time.LocalTime;
 
 public class Time {
-    private LocalTime entryTime;
+    private LocalTime entryTime ;
     private LocalTime departureTime;
 
-    public Time(LocalTime entryTime, LocalTime departureTime) {
-        this.entryTime = entryTime;
-        this.departureTime = departureTime;
+    public Time(int entryTime, int departureTime) {
+        this.entryTime = LocalTime.of(entryTime,entryTime,entryTime);
+        this.departureTime= LocalTime.of(departureTime,departureTime,departureTime);
     }
 
     public LocalTime getEntryTime() {
