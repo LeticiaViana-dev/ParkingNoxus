@@ -1,10 +1,11 @@
-import java.util.concurrent.CompletableFuture;
+package parking_;
 
 public class DataCar {
     private String plate;
     private String CPF;
     private String name;
     private String vehicleType;
+
 
     public DataCar(String plate, String CPF, String name, String vehicleType) {
         this.plate = plate;
@@ -69,6 +70,9 @@ public class DataCar {
         } else {
             return 12.00;
         }
+
+        }
+
     }
     
-}
+

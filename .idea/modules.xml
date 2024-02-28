@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Noxus.iml" filepath="$PROJECT_DIR$/.idea/Noxus.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Parking/Parking.iml" filepath="$PROJECT_DIR$/Parking/Parking.iml" />
     </modules>
   </component>
 </project>
