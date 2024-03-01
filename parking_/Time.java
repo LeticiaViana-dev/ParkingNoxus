@@ -2,14 +2,15 @@ package parking_;
 
 import java.time.Duration;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Time {
-    private LocalTime entryTime ;
+    private LocalTime entryTime;
     private LocalTime departureTime;
 
     public Time(int entryTime, int departureTime) {
-        this.entryTime = LocalTime.of(entryTime,entryTime,entryTime);
-        this.departureTime= LocalTime.of(departureTime,departureTime,departureTime);
+        this.entryTime = LocalTime.of(entryTime, entryTime, entryTime);
+        this.departureTime = LocalTime.of(departureTime, departureTime, departureTime);
     }
 
     public LocalTime getEntryTime() {
@@ -27,8 +28,16 @@ public class Time {
     public void setDepartureTime(LocalTime departureTime) {
         this.departureTime = departureTime;
     }
-    private Duration calculationDuration(){
-        return Duration.between(entryTime,departureTime);
+
+   public Duration calculationDuration() {
+        return Duration.between(entryTime, departureTime);
+    }
+
+    public static String formatTime(LocalTime time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        return formatter.format(time);
+
     }
 }
+
 

@@ -1,17 +1,20 @@
 package parking_;
 
+import java.time.LocalTime;
+
 public class DataCar {
     private String plate;
     private String CPF;
     private String name;
     private String vehicleType;
+    private Time time;
 
-
-    public DataCar(String plate, String CPF, String name, String vehicleType) {
+    public DataCar(String plate, String CPF, String name, String vehicleType, Time time) {
         this.plate = plate;
         this.CPF = CPF;
         this.name = name;
         this.vehicleType = vehicleType;
+        this.time = time;
     }
 
     public String getPlate() {
@@ -46,16 +49,33 @@ public class DataCar {
         this.vehicleType = vehicleType;
     }
 
-    private boolean cpfVerification() {
-        int verify = this.CPF.length();
+    public LocalTime getEntryTime() {
+        return time.getEntryTime();
+    }
+
+    public void setEntryTime(LocalTime time) {
+        this.time.setEntryTime(time);
+    }
+
+    public LocalTime getDepartureTime() {
+        return time.getDepartureTime();
+    }
+
+    public void setDepartureTime(LocalTime time) {
+        this.time.setDepartureTime(time);
+    }
+
+    public boolean cpfVerification(String cpf) {
+        int verify = cpf.length();
         if (verify == 11) {
             return true;
         } else {
             return false;
         }
     }
-    private boolean plateVerification() {
-        int verify = this.plate.length();
+
+    public boolean plateVerification(String plate) {
+        int verify = plate.length();
         if (verify == 7) {
             return true;
         } else {
@@ -71,8 +91,9 @@ public class DataCar {
             return 12.00;
         }
 
-        }
 
     }
+
+}
     
 
