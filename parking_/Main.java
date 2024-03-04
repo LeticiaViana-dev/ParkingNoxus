@@ -16,6 +16,7 @@ public class Main {
         boolean isValidCpf = false;
         boolean isValidPlate = false;
 
+
         while (option != 0) {
             System.out.println("-----------------------------------");
             System.out.println("NOXUS PARKING: \uD83D\uDC41\uFE0F\u200D\uD83D\uDDE8\uFE0F");
@@ -33,8 +34,10 @@ public class Main {
 
             switch (option) {
                 case 1: {
-                    System.out.println("Name: ");
                     while (!isValidCpf) {
+                        System.out.println("Name: ");
+                        String name = questions.nextLine();
+                        dataCar.setName(name);
                         System.out.println("CPF: ");
                         String cpf = questions.nextLine();
                         isValidCpf = dataCar.cpfVerification(cpf);
@@ -59,10 +62,6 @@ public class Main {
                         }
                     }
                     System.out.println("Entry Time: ");
-                    dataCar.setEntryTime(
-
-                            
-                    );
                     dataCar.setEntryTime(LocalTime.parse(questions.nextLine()));
                     questions.nextLine();
                     list.add(dataCar);
@@ -70,21 +69,51 @@ public class Main {
                     break;
                 }
                 case 2: {
-                    System.out.println("CPF: ");
-                    Double cpf = questions.nextDouble();
-                    List<NoxusParkingApp> verify = list.stream().filter(item -> item.getCPF().equals(cpf)).toList();
-                    System.out.println("Exit Time: ");
-                    noxusParkingApp.calculation(noxusParkingApp.getEntryTime(), noxusParkingApp.getExitTime());
-                    for (NoxusParkingApp item : verify) {
-                        item.setExitTime(sc.nextInt());
-                        double value = item.calculation(item.getEntryTime(), item.getExitTime());
-                        System.out.printf("Amount to pay: %.2f%n", value);
+                    while (!isValidCpf) {
+                        System.out.println("CPF: ");
+                        String cpf = questions.nextLine();
+                        isValidCpf = dataCar.cpfVerification(cpf);
+                        if (isValidCpf) {
+                            dataCar.setCPF(cpf);
+                            System.out.println("Valid CPF!!");
+                            List<DataCar> verifyCPF = list.stream().filter(item -> item.getCPF().equals(cpf)).toList();
+                            if (verifyCPF.isEmpty()) {
+                                System.out.println("invalid CPF");
+                                isValidCpf = false;
+                            }
+                        } else {
+                            System.out.println("Invalid CPF");
+                        }
+                        while (!isValidPlate) {
+                            System.out.println("Plate: ");
+                            String plate = questions.nextLine();
+                            isValidPlate = dataCar.plateVerification(plate);
+                            if (isValidPlate) {
+                                dataCar.setCPF(plate);
+                                System.out.println("Valid Plate!!");
+                                List<DataCar> verifyPlate = list.stream().filter(item -> item.getCPF().equals(plate)).toList();
+                                if (verifyPlate.isEmpty()) {
+                                    System.out.println("Invalid Plate");
+                                    isValidPlate = false;
+                                }
+                            } else {
+                                System.out.println("Invalid Plate");
+                            }
+                            System.out.println("Departure Time: ");
+                            dataCar.setDepartureTime(LocalTime.parse(questions.nextLine()));
+                            questions.nextLine();
+                            list.add(dataCar);
+                            System.out.println();
+                           System.out.println("Payment: ");
+                            dataCar.payment();
+                            break;
+                        }
                     }
-
                 }
             }
-
-
             questions.close();
         }
     }
+}
+
+

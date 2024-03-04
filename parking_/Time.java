@@ -29,15 +29,7 @@ public class Time {
         this.departureTime = departureTime;
     }
 
-   public Duration calculationDuration() {
-        return Duration.between(entryTime, departureTime);
-    }
-
-    public static String formatTime(LocalTime time) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        return formatter.format(time);
-
-    }
 }
+
 
 

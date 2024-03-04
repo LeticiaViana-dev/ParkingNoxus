@@ -1,5 +1,6 @@
 package parking_;
 
+import java.time.Duration;
 import java.time.LocalTime;
 
 public class DataCar {
@@ -83,7 +84,7 @@ public class DataCar {
         }
     }
 
-    private double verificationVehicleType() {
+    public double verificationVehicleType() {
         String verify = this.vehicleType;
         if (verify == "car") {
             return 15.00;
@@ -91,9 +92,23 @@ public class DataCar {
             return 12.00;
         }
 
-
     }
 
+    public Duration calculationDuration() {
+        return Duration.between(getEntryTime(), getDepartureTime());
+    }
+
+    public Double payment() {
+        double baseValue = verificationVehicleType();
+        Duration tax = calculationDuration();
+        if (tax.toHours() <= 12) {
+            return baseValue;
+        } else {
+            return baseValue + ((tax.toHours() - 12) * 2);
+        }
+
+    }
 }
-    
+
+
 
