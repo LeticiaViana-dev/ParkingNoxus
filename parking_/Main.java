@@ -10,8 +10,10 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner questions = new Scanner(System.in);
-        DataCar dataCar = new DataCar("", "", "", "", new Time(0, 0));
         List<DataCar> list = new LinkedList<>();
+        DataCar dataCar = new DataCar("", "", "", "", 0, 0, 0, 0);
+        Time time = new Time(0, 0, 0, 0);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         int option = 1;
         boolean isValidCpf = false;
         boolean isValidPlate = false;
@@ -28,16 +30,17 @@ public class Main {
             System.out.println("MENU");
             System.out.println("Option 1: Add date vehicle ");
             System.out.println("Option 2: Payment ");
-            System.out.println("Option S: Exit The Menu");
+            System.out.println("Option 0: Exit The Menu");
             System.out.println("--------------------------------------");
             option = questions.nextInt();
 
             switch (option) {
                 case 1: {
+                    System.out.println("Name: ");
+                    String name = questions.nextLine();
+                    dataCar.setName(name);
+                    questions.nextLine();
                     while (!isValidCpf) {
-                        System.out.println("Name: ");
-                        String name = questions.nextLine();
-                        dataCar.setName(name);
                         System.out.println("CPF: ");
                         String cpf = questions.nextLine();
                         isValidCpf = dataCar.cpfVerification(cpf);
@@ -50,6 +53,7 @@ public class Main {
                     }
                     System.out.println("Vehicle: ");
                     dataCar.setVehicleType(questions.nextLine());
+                    questions.nextLine();
                     while (!isValidPlate) {
                         System.out.println("Plate:");
                         String plate = questions.nextLine();
@@ -61,9 +65,11 @@ public class Main {
                             System.out.println("Invalid Plate");
                         }
                     }
-                    System.out.println("Entry Time: ");
-                    dataCar.setEntryTime(LocalTime.parse(questions.nextLine()));
-                    questions.nextLine();
+                    System.out.println("Entry Time: (HH:mm)");
+                    String entryTimeStr = questions.nextLine();
+                    LocalTime entryTime = LocalTime.parse(entryTimeStr,formatter);
+                     entryTime.toString();
+                     questions.nextLine();
                     list.add(dataCar);
                     System.out.println();
                     break;
@@ -89,7 +95,6 @@ public class Main {
                             String plate = questions.nextLine();
                             isValidPlate = dataCar.plateVerification(plate);
                             if (isValidPlate) {
-                                dataCar.setCPF(plate);
                                 System.out.println("Valid Plate!!");
                                 List<DataCar> verifyPlate = list.stream().filter(item -> item.getCPF().equals(plate)).toList();
                                 if (verifyPlate.isEmpty()) {
@@ -100,18 +105,23 @@ public class Main {
                                 System.out.println("Invalid Plate");
                             }
                             System.out.println("Departure Time: ");
-                            dataCar.setDepartureTime(LocalTime.parse(questions.nextLine()));
+                            String departureTimeStr = questions.nextLine();dataCar.setCPF(plate);
+                            LocalTime departureTimeStrTime = LocalTime.parse(departureTimeStr,formatter);
+                            departureTimeStrTime.toString();
                             questions.nextLine();
-                            list.add(dataCar);
-                            System.out.println();
-                           System.out.println("Payment: ");
+                            list.add(new DataCar(dataCar.getPlate(), dataCar.getCPF(), dataCar.getName(), dataCar.getVehicleType(), departureTimeStrTime.getMinute()));
+                            questions.nextLine();
+                            System.out.println("Payment: ");
                             dataCar.payment();
                             break;
                         }
                     }
                 }
+                case 0:
+                    System.out.println("Thank you for your preference!!");
+                    break;
             }
-            questions.close();
+
         }
     }
 }

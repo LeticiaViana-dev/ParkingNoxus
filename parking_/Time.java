@@ -8,9 +8,9 @@ public class Time {
     private LocalTime entryTime;
     private LocalTime departureTime;
 
-    public Time(int entryTime, int departureTime) {
-        this.entryTime = LocalTime.of(entryTime, entryTime, entryTime);
-        this.departureTime = LocalTime.of(departureTime, departureTime, departureTime);
+    public Time(int entryHour, int entryMinute, int departureHour, int departureMinute) {
+        this.entryTime = LocalTime.of(entryHour, entryMinute);
+        this.departureTime = LocalTime.of(departureHour, departureMinute);
     }
 
     public LocalTime getEntryTime() {
@@ -30,6 +30,7 @@ public class Time {
     }
 
 }
+
 
 
 

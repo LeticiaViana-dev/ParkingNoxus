@@ -10,12 +10,20 @@ public class DataCar {
     private String vehicleType;
     private Time time;
 
-    public DataCar(String plate, String CPF, String name, String vehicleType, Time time) {
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    public DataCar(String plate, String CPF, String name, String vehicleType, int entryHour, int entryMinute, int departureHour, int departureMinute) {
         this.plate = plate;
         this.CPF = CPF;
         this.name = name;
         this.vehicleType = vehicleType;
-        this.time = time;
+        this.time = new Time(entryHour,entryMinute,departureHour,departureMinute);
     }
 
     public String getPlate() {
@@ -106,7 +114,6 @@ public class DataCar {
         } else {
             return baseValue + ((tax.toHours() - 12) * 2);
         }
-
     }
 }
 
