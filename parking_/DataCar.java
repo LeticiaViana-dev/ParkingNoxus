@@ -23,7 +23,7 @@ public class DataCar {
         this.CPF = CPF;
         this.name = name;
         this.vehicleType = vehicleType;
-        this.time = new Time(entryHour,entryMinute,departureHour,departureMinute);
+        this.time = new Time(entryHour, entryMinute, departureHour, departureMinute);
     }
 
     public String getPlate() {
@@ -59,6 +59,7 @@ public class DataCar {
     }
 
     public LocalTime getEntryTime() {
+        System.out.println("entry time: " + time.getEntryTime());
         return time.getEntryTime();
     }
 
@@ -109,10 +110,13 @@ public class DataCar {
     public Double payment() {
         double baseValue = verificationVehicleType();
         Duration tax = calculationDuration();
-        if (tax.toHours() <= 12) {
+        long totalHours = tax.toHours();
+        long remainingMinutes = tax.toMinutes() % 60;
+        System.out.println("Duração total: " + totalHours + " horas, " + remainingMinutes + " minutos");
+        if (totalHours <= 12) {
             return baseValue;
         } else {
-            return baseValue + ((tax.toHours() - 12) * 2);
+            return baseValue + ((totalHours - 12) * 2);
         }
     }
 }

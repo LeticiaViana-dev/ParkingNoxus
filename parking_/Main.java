@@ -18,7 +18,6 @@ public class Main {
         boolean isValidCpf = false;
         boolean isValidPlate = false;
 
-
         while (option != 0) {
             System.out.println("-----------------------------------");
             System.out.println("NOXUS PARKING: \uD83D\uDC41\uFE0F\u200D\uD83D\uDDE8\uFE0F");
@@ -28,7 +27,7 @@ public class Main {
             System.out.println("Car: $ 15.00 - 12 hour period ");
             System.out.println("-------------------------------------");
             System.out.println("MENU");
-            System.out.println("Option 1: Add date vehicle ");
+            System.out.println("Option 1: Add data vehicle ");
             System.out.println("Option 2: Payment ");
             System.out.println("Option 0: Exit The Menu");
             System.out.println("--------------------------------------");
@@ -40,6 +39,7 @@ public class Main {
                     String name = questions.nextLine();
                     dataCar.setName(name);
                     questions.nextLine();
+
                     while (!isValidCpf) {
                         System.out.println("CPF: ");
                         String cpf = questions.nextLine();
@@ -53,7 +53,6 @@ public class Main {
                     }
                     System.out.println("Vehicle: ");
                     dataCar.setVehicleType(questions.nextLine());
-                    questions.nextLine();
                     while (!isValidPlate) {
                         System.out.println("Plate:");
                         String plate = questions.nextLine();
@@ -65,16 +64,20 @@ public class Main {
                             System.out.println("Invalid Plate");
                         }
                     }
-                    System.out.println("Entry Time: (HH:mm)");
+                    System.out.println("Entry Time (HH:mm): ");
                     String entryTimeStr = questions.nextLine();
-                    LocalTime entryTime = LocalTime.parse(entryTimeStr,formatter);
-                     entryTime.toString();
-                     questions.nextLine();
+                    LocalTime entryTime = LocalTime.parse(entryTimeStr, formatter);
+                    dataCar.setEntryTime(entryTime);
                     list.add(dataCar);
-                    System.out.println();
                     break;
                 }
                 case 2: {
+                    isValidCpf = false;
+                    isValidPlate = false;
+                    System.out.println("Name: ");
+                    String name = questions.nextLine();
+                    dataCar.setName(name);
+                    questions.nextLine();
                     while (!isValidCpf) {
                         System.out.println("CPF: ");
                         String cpf = questions.nextLine();
@@ -84,46 +87,50 @@ public class Main {
                             System.out.println("Valid CPF!!");
                             List<DataCar> verifyCPF = list.stream().filter(item -> item.getCPF().equals(cpf)).toList();
                             if (verifyCPF.isEmpty()) {
-                                System.out.println("invalid CPF");
-                                isValidCpf = false;
+                                System.out.println("CPF not found");
                             }
                         } else {
                             System.out.println("Invalid CPF");
                         }
-                        while (!isValidPlate) {
-                            System.out.println("Plate: ");
-                            String plate = questions.nextLine();
-                            isValidPlate = dataCar.plateVerification(plate);
-                            if (isValidPlate) {
-                                System.out.println("Valid Plate!!");
-                                List<DataCar> verifyPlate = list.stream().filter(item -> item.getCPF().equals(plate)).toList();
-                                if (verifyPlate.isEmpty()) {
-                                    System.out.println("Invalid Plate");
-                                    isValidPlate = false;
-                                }
-                            } else {
-                                System.out.println("Invalid Plate");
+                    }
+                    while (!isValidPlate) {
+                        System.out.println("Plate: ");
+                        String plate = questions.nextLine();
+                        isValidPlate = dataCar.plateVerification(plate);
+                        if (isValidPlate) {
+                            System.out.println("Valid Plate!!");
+                            List<DataCar> verifyPlate = list.stream().filter(item -> item.getPlate().equals(plate)).toList();
+                            if (verifyPlate.isEmpty()) {
+                                System.out.println("Plate not found");
+                                isValidPlate = false;
                             }
-                            System.out.println("Departure Time: ");
-                            String departureTimeStr = questions.nextLine();dataCar.setCPF(plate);
-                            LocalTime departureTimeStrTime = LocalTime.parse(departureTimeStr,formatter);
-                            departureTimeStrTime.toString();
-                            questions.nextLine();
-                            list.add(new DataCar(dataCar.getPlate(), dataCar.getCPF(), dataCar.getName(), dataCar.getVehicleType(), departureTimeStrTime.getMinute()));
-                            questions.nextLine();
-                            System.out.println("Payment: ");
-                            dataCar.payment();
-                            break;
+                        } else {
+                            System.out.println("Invalid Plate");
                         }
                     }
+                    System.out.println("Departure Time (HH:mm): ");
+                    String departureTimeStr = questions.nextLine();
+                    LocalTime departureTime = LocalTime.parse(departureTimeStr, formatter);
+                    dataCar.setDepartureTime(departureTime);
+                    list.add(dataCar);
+                    System.out.println("Payment: " + dataCar.payment());
+                    break;
                 }
-                case 0:
+
+                case 0: {
                     System.out.println("Thank you for your preference!!");
                     break;
+                }
+                default: {
+                    System.out.println("Invalid option. Please try again.");
+                    break;
+
+                }
             }
 
         }
     }
 }
+
 
 
